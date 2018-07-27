@@ -7,11 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class IUserService implements UserDetailsService {
+public class IUserService{
 
 
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
-    }
 }

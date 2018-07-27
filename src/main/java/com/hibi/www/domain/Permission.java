@@ -4,8 +4,6 @@ import javax.persistence.*;
 
 public class Permission {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     //权限名称
     private String name;
