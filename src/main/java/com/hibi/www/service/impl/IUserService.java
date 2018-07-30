@@ -4,18 +4,21 @@ import com.hibi.www.dao.mapper.UserMapper;
 import com.hibi.www.domain.Permission;
 import com.hibi.www.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-@Service
+@Service("userService")
 public class IUserService implements UserDetailsService {
 
     @Autowired
@@ -28,8 +31,10 @@ public class IUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userMapper.findByUserName(s);
+//        System.out.print(user.getUsername());
         if (user != null) {
             List<Permission> permissions = permissionMapper.findByAdminUserId(user.getId());
+            System.out.println("----------------------"+user.getUsername());
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
             for (Permission per:permissions) {
                 if (per != null && per.getName() !=null) {

@@ -1,7 +1,6 @@
 package com.hibi.www.interceptor;
 
 
-import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -22,7 +21,7 @@ import java.io.IOException;
 @Service
 public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter{
 
-    @Resource
+    @Autowired
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
     @Autowired

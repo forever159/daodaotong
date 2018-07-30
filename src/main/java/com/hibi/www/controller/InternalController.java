@@ -33,33 +33,20 @@ public class InternalController {
 
     private final Logger log = LoggerFactory.getLogger(InternalController.class);
 
+
     @Autowired
     CodeUtil codeUtil;
 
     @RequestMapping("/index")
-    @Auth
+//    @Auth
     public String index(Model model){
-        return "login";
+        return "/home";
     }
 
-    @RequestMapping("/login")
-    public String login(Model model){
-        return "login";
-    }
 
-    @PostMapping("/loginTo")
-    @ResponseBody
-    public String loginTo(HttpServletRequest request){
-        String code = (String) request.getSession().getAttribute("code");
-//        System.out.print(code);
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String code_ = request.getParameter("code");
-        if (code.equals(code_)){
-            return "success";
-        }
-        return "error";
-    }
+
+
+
 
 
     /**
