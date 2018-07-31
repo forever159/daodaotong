@@ -48,4 +48,8 @@ public class IUserService implements UserDetailsService {
             throw new UsernameNotFoundException("admin: " + s + " do not exist!");
         }
     }
+
+    public User findByUsername(String username) {
+        return  userMapper.findByUserName(username);
+    }
 }

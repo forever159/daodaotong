@@ -5,4 +5,5 @@ public interface Constants {
     String MOBILE_NUMBER_SESSION_KEY = "sessionMobileNumber";
     String USER_CODE_SESSION_KEY = "userCode";
     String SESSION_KEY = "sessionId";
+    String VIRFY_CODE = "code";
 }

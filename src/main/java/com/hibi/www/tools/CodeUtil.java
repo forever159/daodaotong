@@ -83,7 +83,7 @@ public final class CodeUtil {
         }
         Map<String,Object> map  =new HashMap<String,Object>();
         //存放验证码
-        map.put("code", randomCode);
+        map.put("session_imageCode", randomCode);
         //存放生成的验证码BufferedImage对象
         map.put("codePic", buffImg);
         return map;
