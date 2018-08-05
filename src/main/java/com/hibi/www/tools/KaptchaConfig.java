@@ -15,7 +15,7 @@ public class KaptchaConfig {
     public DefaultKaptcha getKaptchaBean(){
         DefaultKaptcha defaultKaptcha=new DefaultKaptcha();
         Properties properties=new Properties();
-        properties.setProperty("kaptcha.textproducer.char.string", "123456789");//验证码字符范围
+        properties.setProperty("kaptcha.textproducer.char.string", "123456789ABCDEFGHIJKLMNabcdefghijklmn");//验证码字符范围
         properties.setProperty("kaptcha.border.color", "245,248,249");//图片边框颜色
         properties.setProperty("kaptcha.textproducer.font.color", "black");//字体颜色
         properties.setProperty("kaptcha.textproducer.char.space", "2");//文字间隔

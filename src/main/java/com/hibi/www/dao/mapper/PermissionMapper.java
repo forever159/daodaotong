@@ -1,12 +1,13 @@
 package com.hibi.www.dao.mapper;
 
+import com.hibi.www.dao.MyMapper;
 import com.hibi.www.domain.Permission;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
 
-public interface PermissionMapper{
+public interface PermissionMapper extends MyMapper<Permission>{
 
     @Select("SELECT * FROM sys_permission")
     public List<Permission> selectAll();

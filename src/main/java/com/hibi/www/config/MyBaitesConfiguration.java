@@ -22,16 +22,17 @@ public class MyBaitesConfiguration {
     public SqlSessionFactory sqlSessionFactory(){
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setTypeAliasesPackage("com.hibi.www.domain");
+//        如果引入了springboot环境使用的pagehelper后，不需要此处设置分页插件
 //        设置分页插件
-        PageHelper helper = new PageHelper();
-        Properties properties = new Properties();
-        properties.setProperty("reasonable", "true");
-        properties.setProperty("supportMethodsArguments", "true");
-        properties.setProperty("returnPageInfo", "check");
-        properties.setProperty("params", "count=countSql");
-        helper.setProperties(properties);
+//        PageHelper helper = new PageHelper();
+//        Properties properties = new Properties();
+//        properties.setProperty("reasonable", "true");
+//        properties.setProperty("supportMethodsArguments", "true");
+//        properties.setProperty("returnPageInfo", "check");
+//        properties.setProperty("params", "count=countSql");
+//        helper.setProperties(properties);
         //添加分页插件
-        bean.setPlugins(new Interceptor[]{helper});
+//        bean.setPlugins(new Interceptor[]{helper});
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
             //基于注解扫描Mapper，不需配置xml路径

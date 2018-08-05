@@ -1,13 +1,36 @@
 package com.hibi.www.domain;
 
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
 
+@Table(name = "sys_user")
 public class User {
     private Integer id;
     private String username;
     private String password;
+
+    public User() {
+        super();
+    }
+
+    public User(String username) {
+        super();
+        this.username = username;
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(Integer id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
+
 
 //    private List<Role> roles = new ArrayList<Role>();
 
@@ -42,4 +65,14 @@ public class User {
 //    public void setRoles(List<Role> roles) {
 //        this.roles = roles;
 //    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

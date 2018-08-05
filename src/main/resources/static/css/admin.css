@@ -1,0 +1,6 @@
+.layui-row>div{
+    height: 100px;
+    background-color: #4cae4c;
+    text-align: center;
+    line-height: 100px;
+}

@@ -1,8 +1,8 @@
 package com.hibi.www.domain;
 
-import javax.persistence.*;
+import java.io.Serializable;
 
-public class Permission {
+public class Permission implements Serializable{
 
     private Integer id;
     //权限名称

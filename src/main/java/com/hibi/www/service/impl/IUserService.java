@@ -34,7 +34,7 @@ public class IUserService implements UserDetailsService {
 //        System.out.print(user.getUsername());
         if (user != null) {
             List<Permission> permissions = permissionMapper.findByAdminUserId(user.getId());
-            System.out.println("----------------------"+user.getUsername());
+//            System.out.println("----------------------"+user.getUsername());
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
             for (Permission per:permissions) {
                 if (per != null && per.getName() !=null) {
