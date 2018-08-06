@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
-
 </head>
 <body>
 <blockquote class="layui-elem-quote title">
@@ -18,7 +17,7 @@
 <!--菜单可操作性，工具条，判断是否可操作-->
 <script type="text/html" id="tbar">
     {{#  if(d.menuStatu !=0){ }}
-        <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+        <!--<a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>-->
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{#  } else{ }}
@@ -28,12 +27,15 @@
 </body>
 <script th:src="@{/layui/layui.all.js}"></script>
 <script th:src="@{/js/admin.js}" type="text/javascript"></script>
+<script th:src="@{/js/global.js}" type="text/javascript"></script>
 <script>
     var $ = layui.jquery;
     var layer = layui.layer;
     var element = layui.element;
     var util = layui.util;
     var table = layui.table;
+    var form = layui.form;
+    var common = layui.common;
 </script>
 
 
@@ -41,18 +43,19 @@
     //初始化表格数据-->
     table.render({
         elem: '#menu'
-        ,height: 315
+        ,height: 450
+        ,id:"menu"
         ,url: '/menu/pageMenu' //数据接口
         ,page: true //开启分页
         ,cols: [
                 [ //表头
-                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-                ,{field: 'menuName', title: '菜单名称', width:180}
-                ,{field: 'menuUrl', title: '菜单url', width:180, sort: true}
-                ,{field: 'menuPid', title: '父级', width: 177}
-                ,{field: 'menuType', title: '菜单类型', width: 177,templet: '#typeTpl'}
-                ,{field: 'menuStatu', title: '状态', width: 177,templet: '#statu'}
-                ,{fixed: 'right', width:200, align:'center', toolbar: '#tbar'}
+                {field: 'id', title: 'ID', width:160, align:'center', sort: true, fixed: 'left'}
+                ,{field: 'menuName', title: '菜单名称', align:'center', width:180}
+                ,{field: 'menuUrl', title: '菜单url', align:'center', width:180, sort: true}
+                ,{field: 'menuPid', title: '父级', align:'center', width: 177}
+                ,{field: 'menuType', title: '菜单类型', align:'center', width: 177,templet: '#typeTpl'}
+                ,{field: 'menuStatu', title: '状态', align:'center', width: 177,templet: '#statu'}
+                ,{fixed: 'right',title:'操作', width:200, align:'center', toolbar: '#tbar'}
             ]
         ]
     });
@@ -71,26 +74,24 @@
                 obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                 layer.close(index);
                 //向服务端发送删除指令
+                // layer.alert(data.id);
+                delMenu(data);
             });
         } else if(layEvent === 'edit'){ //编辑
-            //do something
-            layer.alert("");
-            //同步更新缓存对应的值
-            // obj.update({
-            //     username: '123'
-            //     ,title: 'xxx'
-            // });
+            updateMenu(data);
         }
     });
 
 </script>
 <!--字符转义，菜单级别-->
 <script type="text/html" id="typeTpl">
-    {{#  if(d.menuType==1){ }}
+    {{#  if(d.menuType==-1){ }}
+    顶级菜单
+    {{#  } else if(d.menuType==0) { }}
     一级菜单
-    {{#  } else if(d.menuType==2) { }}
+    {{#  } else if(d.menuType==1) { }}
     二级菜单
-    {{#  } else if(d.menuType==3) { }}
+    {{#  } else if(d.menuType==2) { }}
     三级菜单
     {{#  }}}
 </script>
@@ -98,7 +99,7 @@
 <script type="text/html" id="statu">
     {{#  if(d.menuStatu==0){ }}
     系统菜单
-    {{#  } else if(d.menuType==2) { }}
+    {{#  }else{}}
     自定义菜单
     {{#  } }}
 </script>

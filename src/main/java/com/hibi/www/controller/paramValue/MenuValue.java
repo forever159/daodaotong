@@ -10,7 +10,65 @@ public class MenuValue {
     private int page;
     private int start;
     private int limit;
+//    用于接收查询参数以及判断前台当前为增加还是更新
     private String key;
+
+
+    private String id;
+    private String menuName;
+    private String menuUrl;
+    private String menuPid;
+    private String menuType;
+    private String menuRemark;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getMenuName() {
+        return menuName;
+    }
+
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
+    }
+
+    public String getMenuUrl() {
+        return menuUrl;
+    }
+
+    public void setMenuUrl(String menuUrl) {
+        this.menuUrl = menuUrl;
+    }
+
+    public String getMenuPid() {
+        return menuPid;
+    }
+
+    public void setMenuPid(String menuPid) {
+        this.menuPid = menuPid;
+    }
+
+    public String getMenuType() {
+        return menuType;
+    }
+
+    public void setMenuType(String menuType) {
+        this.menuType = menuType;
+    }
+
+    public String getMenuRemark() {
+        return menuRemark;
+    }
+
+    public void setMenuRemark(String menuRemark) {
+        this.menuRemark = menuRemark;
+    }
 
     public String getKey() {
         return key;

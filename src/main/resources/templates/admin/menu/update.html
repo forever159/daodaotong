@@ -6,24 +6,24 @@
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
 </head>
 <body>
-<form class="layui-form">
+<form class="layui-form" th:object="${session.menu}">
     <div class="layui-form-item">
         <label class="layui-form-label">菜单名称</label>
         <div class="layui-input-block">
-            <input type="text" name="menuName" required  lay-verify="required" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
+            <input type="text" th:value="*{menuName}" name="menuName" required  lay-verify="required" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">菜单URL</label>
         <div class="layui-input-block">
-            <input type="text" name="menuUrl" required  lay-verify="required" placeholder="请输入菜单URL" autocomplete="off" class="layui-input">
+            <input type="text"  name="menuUrl" th:value="*{menuUrl}" required  lay-verify="required" placeholder="请输入菜单URL" autocomplete="off" class="layui-input">
         </div>
     </div>
     <!--选择框动态加载-->
     <div class="layui-form-item">
         <label class="layui-form-label">父级菜单</label>
         <div class="layui-input-block">
-            <select id="menuList" name="menuPid" lay-verify="required">
+            <select id="menuList" name="menuPid" th:value="*{menuPid}" lay-verify="required">
                 <option value="0"></option>
             </select>
         </div>
@@ -31,7 +31,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">菜单级别</label>
         <div class="layui-input-block">
-            <select name="menuType" lay-verify="required">
+            <select name="menuType" lay-verify="required"  th:value="*{menuType}">
                 <option value="-1">顶级菜单</option>
                 <option value="0">一级菜单</option>
                 <option value="1">二级菜单</option>
@@ -42,7 +42,7 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">菜单说明</label>
         <div class="layui-input-block">
-            <textarea name="menuRemark" placeholder="请输入内容" class="layui-textarea"></textarea>
+            <textarea name="menuRemark"  th:value="*{menuRemark}" placeholder="请输入内容" class="layui-textarea"></textarea>
         </div>
     </div>
     <div class="layui-form-item">

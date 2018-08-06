@@ -18,6 +18,15 @@ public class Pages {
     private int code;
     private long total;
     private List data = new ArrayList<>();
+    private String dts;
+
+    public String getDts() {
+        return dts;
+    }
+
+    public void setDts(String dts) {
+        this.dts = dts;
+    }
 
     public int getPage() {
         return page;
@@ -73,7 +82,7 @@ public class Pages {
                 "\"code\":" + code +
                 ", \"msg\":" +"\""+ msg +"\"" +
                 ", \"count\":" + total +
-                ", \"data\":" + getData().toString()+
+                ", \"data\":" + (getData().size()>0?getData().toString():getDts())+
                 "}";
     }
 }

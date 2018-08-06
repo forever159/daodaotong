@@ -21,14 +21,14 @@ public class Menu  implements Serializable{
     private String menuPid;
     private String menuType;
     private String menuRemark;
-    private String menuStatu;
+    private Integer menuStatu;
 
 
-    public String getMenuStatu() {
+    public Integer getMenuStatu() {
         return menuStatu;
     }
 
-    public void setMenuStatu(String menuStatu) {
+    public void setMenuStatu(Integer menuStatu) {
         this.menuStatu = menuStatu;
     }
 
