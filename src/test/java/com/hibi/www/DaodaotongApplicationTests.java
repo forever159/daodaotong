@@ -1,12 +1,16 @@
 package com.hibi.www;
 
 
-import com.github.pagehelper.Page;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hibi.www.dao.mapper.RoleMapper;
 import com.hibi.www.dao.mapper.UserMapper;
 import com.hibi.www.domain.Menu;
+import com.hibi.www.domain.RoleUser;
 import com.hibi.www.domain.User;
+import com.hibi.www.service.RoleService;
 import com.hibi.www.service.impl.IMenuService;
 import com.hibi.www.tools.LogTool;
 import com.hibi.www.tools.Pages;
@@ -16,10 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
-import tk.mybatis.mapper.entity.Condition;
-import tk.mybatis.mapper.entity.Example;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,8 +35,8 @@ public class DaodaotongApplicationTests {
     @Autowired
     IMenuService menuService;
 
-
-
+    @Autowired
+    RoleMapper roleMapper;
 
     @Test
     public void test1() {
@@ -69,9 +71,15 @@ public class DaodaotongApplicationTests {
      */
     @Test
     public void selectMenuCount(){
-        Pages  list = menuService.getMenuByPage(1, 20, "", new Menu());
+        Pages  list = menuService.getMenuByPage(1, 20, "", new Menu.MenuBuilder().build());
         LogTool.printLog(this.getClass(),"--"+list.toString(),1);
     }
 
+
+
+    @Test
+    public void testGetRoleUserList(){
+
+    }
 
 }

@@ -39,7 +39,9 @@ public class IUserService implements UserDetailsService {
             for (Permission per:permissions) {
                 if (per != null && per.getName() !=null) {
                     GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(per.getName());
+//                    GrantedAuthority grantedAuthority1 = new SimpleGrantedAuthority(per.getUrl());
                     grantedAuthorities.add(grantedAuthority);
+//                    grantedAuthorities.add(grantedAuthority1);
                 }
             }
             return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword()

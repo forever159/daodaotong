@@ -9,6 +9,11 @@ import java.util.List;
 
 
 public interface UserMapper extends MyMapper<User>{
+    /**
+     * 根据用户姓名查询用户信息
+     * @param username
+     * @return
+     */
     @Select("SELECT * FROM sys_user WHERE username = #{username}")
     public User findByUserName(String username);
 }

@@ -24,4 +24,14 @@ public interface PermissionMapper extends MyMapper<Permission>{
 
 
 
+    @Select("SELECT SUBSTRING_INDEX(name,\"_\",-1)\n" +
+            "FROM sys_permission\n" +
+            "WHERE `name` like '%ADMIN%'")
+    public List<Permission> findPermissionByLike(String name);
+
+
+
+
+
+
 }

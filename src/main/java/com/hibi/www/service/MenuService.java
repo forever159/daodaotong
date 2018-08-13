@@ -46,4 +46,11 @@ public interface MenuService {
      * @return
      */
     public Menu selectByPrimaryKey(String id);
+
+    /**
+     * 更新菜单操作，接口
+     * @param menu
+     * @return
+     */
+    public Pages updateMenu(Menu menu);
 }

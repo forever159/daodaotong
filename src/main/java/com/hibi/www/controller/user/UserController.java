@@ -15,9 +15,9 @@ public class UserController {
 
 
 
-    @PostMapping("/bar")
+    @PostMapping("/")
     public String bar(){
-        return "";
+        return "user/home";
     }
 
 

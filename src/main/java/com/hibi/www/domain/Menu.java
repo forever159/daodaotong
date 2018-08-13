@@ -11,9 +11,7 @@ import java.io.Serializable;
  * @description 用于保存系统菜单
  */
 @Table(name = "ddt_menu")
-public class Menu  implements Serializable{
-
-
+public  class Menu  implements Serializable{
     @Id
     private String id;
     private String menuName;
@@ -22,6 +20,78 @@ public class Menu  implements Serializable{
     private String menuType;
     private String menuRemark;
     private Integer menuStatu;
+
+    /**
+     * 建造者模式，通过此模式返回Menu对象
+     * @param id
+     * @return
+     */
+    public static  class MenuBuilder{
+        String id;
+        String menuName;
+        String menuUrl;
+        String menuPid;
+        String menuType;
+        String menuRemark;
+        Integer menuStatu;
+
+
+        public MenuBuilder setId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public MenuBuilder setMenuName(String menuName) {
+            this.menuName = menuName;
+            return this;
+        }
+
+        public MenuBuilder setMenuUrl(String menuUrl) {
+            this.menuUrl = menuUrl;
+            return this;
+        }
+
+        public MenuBuilder setMenuPid(String menuPid) {
+            this.menuPid = menuPid;
+            return this;
+        }
+
+        public MenuBuilder setMenuType(String menuType) {
+            this.menuType = menuType;
+            return this;
+        }
+
+        public MenuBuilder setMenuRemark(String menuRemark) {
+            this.menuRemark = menuRemark;
+            return this;
+        }
+
+        public MenuBuilder setMenuStatu(Integer menuStatu) {
+            this.menuStatu = menuStatu;
+            return this;
+        }
+
+
+        public Menu build(){
+            return  new Menu(this);
+        }
+    }
+
+
+    public Menu(){
+
+    }
+
+    public Menu(MenuBuilder menuBuilder){
+        this.id = menuBuilder.id;
+        this.menuName = menuBuilder.menuName;
+        this.menuUrl = menuBuilder.menuUrl;
+        this.menuPid = menuBuilder.menuPid;
+        this.menuType = menuBuilder.menuType;
+        this.menuRemark = menuBuilder.menuRemark;
+        this.menuStatu = menuBuilder.menuStatu;
+    }
+
 
 
     public Integer getMenuStatu() {

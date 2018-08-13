@@ -1,9 +1,12 @@
 package com.hibi.www.config;
 
 
+import com.hibi.www.domain.Permission;
 import com.hibi.www.filter.KaptchaAuthenticationFilter;
 import com.hibi.www.interceptor.MyFilterSecurityInterceptor;
+import com.hibi.www.service.impl.IPermissionService;
 import com.hibi.www.service.impl.IUserService;
+import com.hibi.www.tools.LogTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +22,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,6 +37,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.List;
 
 
 @Configuration
@@ -45,6 +51,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IPermissionService permissionService;
+
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -75,11 +86,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        List<Permission> admin = permissionService.findPermissionByLike("ADMIN");
+        LogTool.printLog(this.getClass(),admin.toString(),1);
+
         http.addFilterBefore(new KaptchaAuthenticationFilter("/login","/login?error")
                 , UsernamePasswordAuthenticationFilter.class)
-        .authorizeRequests().antMatchers("static/**").permitAll()
-        .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("ADMIN","USER")
+        .authorizeRequests().antMatchers("static/**","error/**").permitAll()
+        .antMatchers("/admin/**").hasAnyRole("ADMIN","GADMIN")
+                .antMatchers("/user/**").hasAnyRole("USER")
                 .antMatchers("/socket/**").permitAll()
                 .antMatchers("/menu/**").hasAnyRole("ADMIN","USER")
         .and()
@@ -106,7 +120,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 out.flush();
                 out.close();
             }
-        }).and().exceptionHandling().accessDeniedPage("/403");
+        }).and().exceptionHandling().accessDeniedPage("/error/403");
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/login");
         http.csrf().ignoringAntMatchers("/h2-console/**");// 禁用 H2 控制台的 CSRF 防护
         http.csrf().ignoringAntMatchers("/ajax/**");// 禁用 H2 控制台的 CSRF 防护

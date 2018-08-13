@@ -17,8 +17,6 @@ public class AdminInitController {
 
     @RequestMapping("/init")
     public String init(Model model){
-        Msg msg =  new Msg("登录成功!","测试内容","欢迎来到HOME页面,您拥有 ROLE_HOME 权限");
-        model.addAttribute("msg", msg);
         return "admin/index";
     }
 

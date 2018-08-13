@@ -11,6 +11,8 @@ import com.hibi.www.tools.LogTool;
 import com.hibi.www.tools.Pages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
@@ -53,7 +55,7 @@ public class IMenuService  implements MenuService{
 //        int count = this.menuMapper.selectCount(key);
         //利用分页工具类进行分页获取列表
         pageInfo = PageHelper.startPage(page,rows)
-                .setOrderBy(order==null?"id=ASC":order)
+                .setOrderBy(order==""?"menu_statu ASC":order)
                 .doSelectPageInfo(()->this.menuMapper.selectByExample(example));
 
         pgs = new Pages();
@@ -111,6 +113,7 @@ public class IMenuService  implements MenuService{
      * 日期：2018年8月6日
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public Pages insertMenu(Menu menu) {
         int bool = menuMapper.insert(menu);
         pgs = new Pages();
@@ -129,6 +132,7 @@ public class IMenuService  implements MenuService{
      * 日期：2018年8月6日
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public Pages delMenu(String id) {
         int rs;
         pgs =new Pages();
@@ -156,5 +160,29 @@ public class IMenuService  implements MenuService{
     public Menu selectByPrimaryKey(String id) {
         Menu menu = menuMapper.selectByPrimaryKey(id);
         return menu;
+    }
+
+    /**
+     * 更新菜单操作，接口实现
+     * @param menu
+     * @return pages
+     * 作者：penglei
+     * 日期：2018年8月7日
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+    public Pages updateMenu(Menu menu) {
+        int rs = 0;
+        pgs = new Pages();
+        try {
+            rs = menuMapper.updateByPrimaryKey(menu);
+            pgs.setCode(200);
+            pgs.setMsg("更新成功!");
+        } catch (Exception e) {
+            pgs.setCode(202);
+            pgs.setMsg("更新失败,原因："+e.getMessage());
+            LogTool.printLog(this.getClass(),e.toString(),3);
+        }
+        return pgs;
     }
 }
