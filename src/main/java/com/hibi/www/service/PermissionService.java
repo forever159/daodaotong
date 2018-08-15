@@ -16,5 +16,12 @@ public interface PermissionService {
      * @param name
      * @return List
      */
-    public List<Permission> findPermissionByLike(String name);
+    public List<String> findPermissionByLike(String name);
+
+
+    /**
+     * 查询权限列表
+     * @return list
+     */
+    public List<Permission> getPermissions();
 }

@@ -56,4 +56,16 @@ public class Permission implements Serializable{
     public void setPid(int pid) {
         this.pid = pid;
     }
+
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", descritpion='" + descritpion + '\'' +
+                ", url='" + url + '\'' +
+                ", pid=" + pid +
+                '}';
+    }
 }

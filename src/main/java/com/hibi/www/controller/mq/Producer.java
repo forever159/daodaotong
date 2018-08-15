@@ -1,4 +1,4 @@
-package com.hibi.www.controller;
+package com.hibi.www.controller.mq;
 
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

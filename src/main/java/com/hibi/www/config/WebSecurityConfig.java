@@ -86,13 +86,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        List<Permission> admin = permissionService.findPermissionByLike("ADMIN");
+        //动态获取管理员权限
+        List<String> admin = permissionService.findPermissionByLike("ADMIN");
         LogTool.printLog(this.getClass(),admin.toString(),1);
-
         http.addFilterBefore(new KaptchaAuthenticationFilter("/login","/login?error")
                 , UsernamePasswordAuthenticationFilter.class)
         .authorizeRequests().antMatchers("static/**","error/**").permitAll()
-        .antMatchers("/admin/**").hasAnyRole("ADMIN","GADMIN")
+        .antMatchers("/admin/**").hasAnyRole(admin.toString().replace("[","").replace("]",""))
                 .antMatchers("/user/**").hasAnyRole("USER")
                 .antMatchers("/socket/**").permitAll()
                 .antMatchers("/menu/**").hasAnyRole("ADMIN","USER")
@@ -103,10 +103,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             @Override
             public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
                 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                if (principal != null && principal instanceof UserDetails) {
+                Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+                boolean flag = true;
+                for (String str:admin) {
+                    System.out.println(str+"----"+authorities.iterator().next().getAuthority());
+                    System.out.println(str.equals(authorities.iterator().next().getAuthority().split("_")[1]));
+                    if (str.equals(authorities.iterator().next().getAuthority().split("_")[1]) == true) {
+                        flag = true;
+                        break;
+                    }else {
+                        flag = false;
+                    }
+                }
+                if (principal != null && principal instanceof UserDetails && flag == true) {
                     httpServletResponse.setContentType("application/json;charset=utf-8");
                     PrintWriter out = httpServletResponse.getWriter();
                     out.write("{\"status\":\"ok\",\"message\":\"登录成功\"}");
+                    out.flush();
+                    out.close();
+                }else{
+                    httpServletResponse.setContentType("application/json;charset=utf-8");
+                    PrintWriter out = httpServletResponse.getWriter();
+                    out.write("{\"status\":\"faild\",\"message\":\"对不起，您没有权限访问该页面\"}");
                     out.flush();
                     out.close();
                 }
